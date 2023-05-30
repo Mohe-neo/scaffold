@@ -1,0 +1,41 @@
+server:
+  shutdown: graceful
+  port: 8888
+  tomcat:
+    uri-encoding: utf-8 #编码格式
+  servlet:
+    encoding:
+      force: true
+      charset: UTF-8 #编码格式
+      enabled: true
+
+spring:
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss # 时间格式
+    time-zone: GMT+8  # 时区
+  application:
+    name: unification-scaffold # 应用名称
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  main:
+    allow-circular-references: true
+
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /swagger-ui/
+      - /swagger-ui.html
+      - /swagger-resources/**
+      - /v3/**
+      - /**/*.html
+      - /**/*.js
+      - /**/*.css
+      - /**/*.png
+      - /favicon.ico
+      - /actuator/**
+      - /api/login
+      - /admin/register
+      - /admin/info
+      - /admin/logout
