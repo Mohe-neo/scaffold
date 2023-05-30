@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.idiots.scaffold.mapper.SysMenuMapper">
+
+    <select id="findMenuByUsername" resultType="java.lang.String">
+        SELECT m.code
+        FROM sys_menu m
+                 LEFT JOIN sys_role_menu rm ON m.id = rm.menu_id
+                 left join sys_account_role ar on ar.role_id = rm.role_id
+                 left join sys_account a on ar.account_id = a.id
+        where a.username = #{username}
+    </select>
+    <select id="findSysMenuUrlByRoleCode" resultType="java.lang.String">
+        SELECT m.code
+        FROM sys_menu m
+        LEFT JOIN sys_role_menu rm ON m.id = rm.menu_id
+        LEFT JOIN sys_role r ON r.id = rm.role_id
+        WHERE r.code IN
+        <foreach collection='codes' item='roleCode' open='(' separator=',' close=')'>
+            #{roleCode}
+        </foreach>
+    </select>
+</mapper>
